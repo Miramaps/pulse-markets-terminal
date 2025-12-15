@@ -27,13 +27,17 @@
     --accent: 42 45% 65%;
     --accent-blue: 222 100% 58%;
     
-    /* YES/NO Professional */
-    --yes-bg: 160 50% 16%;
-    --yes-text: 140 100% 90%;
-    --yes-border: 140 100% 90% / 0.18;
-    --no-bg: 12 50% 16%;
-    --no-text: 15 100% 93%;
-    --no-border: 15 100% 93% / 0.18;
+    /* YES/NO Polymarket-style */
+    --yes-bg: 160 42% 21%;
+    --yes-border: 160 42% 29%;
+    --yes-text: 152 78% 85%;
+    --yes-hover: 160 42% 25%;
+    --yes-active: 160 42% 29%;
+    --no-bg: 348 34% 24%;
+    --no-border: 348 34% 33%;
+    --no-text: 352 100% 91%;
+    --no-hover: 348 34% 27%;
+    --no-active: 348 34% 33%;
     
     /* Shadcn mappings */
     --background: var(--bg);
@@ -190,26 +194,36 @@
     background-color: hsl(var(--accent-blue));
   }
 
-  /* YES Button */
+  /* YES Button - Polymarket style */
   .btn-yes {
     background-color: hsl(var(--yes-bg));
     border: 1px solid hsl(var(--yes-border));
     color: hsl(var(--yes-text));
+    transition: background-color 0.15s ease;
   }
 
   .btn-yes:hover {
-    background-color: hsl(160 50% 20%);
+    background-color: hsl(var(--yes-hover));
   }
 
-  /* NO Button */
+  .btn-yes:active {
+    background-color: hsl(var(--yes-active));
+  }
+
+  /* NO Button - Polymarket style */
   .btn-no {
     background-color: hsl(var(--no-bg));
     border: 1px solid hsl(var(--no-border));
     color: hsl(var(--no-text));
+    transition: background-color 0.15s ease;
   }
 
   .btn-no:hover {
-    background-color: hsl(12 50% 20%);
+    background-color: hsl(var(--no-hover));
+  }
+
+  .btn-no:active {
+    background-color: hsl(var(--no-active));
   }
 
   /* Terminal shadow */
