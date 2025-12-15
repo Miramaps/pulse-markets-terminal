@@ -9,7 +9,17 @@ export interface Market {
   createdAt: Date;
   resolvesAt: Date;
   status: 'new' | 'ending' | 'resolved';
+  sourceUrl?: string;
+  liquidity?: number;
 }
+
+export const categoryIcons: Record<Market['category'], string> = {
+  crypto: 'Sparkles',
+  politics: 'Landmark',
+  sports: 'Trophy',
+  pop: 'Music',
+  memes: 'Laugh',
+};
 
 const categories: Market['category'][] = ['crypto', 'politics', 'sports', 'pop', 'memes'];
 const questions = ["Will Bitcoin hit $150K before Feb 2025?","ETH to flip BTC market cap this cycle?","Trump wins 2028 election?","Elon buys another social platform?","Lakers win NBA Finals 2025?","Taylor Swift releases new album Q1?","Dogecoin reaches $1 this bull run?","Fed cuts rates in January?","Apple launches AR glasses 2025?","Tesla stock above $500 by March?","Will AI replace 50% of jobs by 2030?","China invades Taiwan before 2026?","Netflix reaches 300M subscribers?","SpaceX Starship reaches Mars?","Gold price exceeds $3000/oz?","Shiba Inu flips Dogecoin?","YouTube removes dislikes permanently?","New COVID variant causes lockdowns?","Meta stock doubles in 2025?","OpenAI IPO before 2026?","Solana flips Ethereum TVL?","World Cup 2026 USA wins?","TikTok banned in EU?","Disney+ surpasses Netflix?","Amazon acquires gaming company?","Bitcoin ETF hits $100B AUM?","Nvidia stock split again?","Twitter/X reaches profitability?","Google launches crypto wallet?","MrBeast hits 500M subs?","Ronaldo retires before 2026?","New iPhone has no ports?","Nuclear fusion breakthrough 2025?","Reddit IPO above $10B?","Cybertruck mass production success?","Binance relisted in US?","UFC fighter tests positive?","Kanye drops new album?","Stripe goes public 2025?","Mars sample return successful?","Anthropic reaches $50B valuation?","Apple buys OpenAI stake?","Ethereum gas below 5 gwei avg?","First AI-written Oscar nominee?","Bitcoin mining ban in EU?"];

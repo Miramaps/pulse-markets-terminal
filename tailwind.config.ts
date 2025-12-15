@@ -20,14 +20,10 @@ export default {
         canvas: "hsl(var(--bg))",
         canvas2: "hsl(var(--bg2))",
         ink: "hsl(var(--ink))",
-        panel: "hsl(var(--panel))",
-        "panel-card": "hsl(var(--card))",
-        "border-light": "hsl(var(--border-light))",
-        "border-dark": "hsl(var(--border-dark))",
-        "accent-blue": "hsl(var(--accent))",
-        "accent-lime": "hsl(var(--accent2))",
-        "accent-coral": "hsl(var(--accent3))",
+        "card-solid": "hsl(var(--card))",
+        stroke: "hsl(var(--stroke))",
         gold: "hsl(var(--gold))",
+        "accent-blue": "hsl(var(--blue))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -87,16 +83,8 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "price-flash-blue": {
-          "0%, 100%": { color: "inherit" },
-          "50%": { color: "hsl(222 100% 58%)" },
-        },
-        "price-flash-coral": {
-          "0%, 100%": { color: "inherit" },
-          "50%": { color: "hsl(18 100% 62%)" },
-        },
         "fade-in": {
-          from: { opacity: "0", transform: "translateY(-4px)" },
+          from: { opacity: "0", transform: "translateY(-6px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "slide-up": {
@@ -107,8 +95,6 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "price-flash-blue": "price-flash-blue 0.5s ease-out",
-        "price-flash-coral": "price-flash-coral 0.5s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
         "slide-up": "slide-up 0.25s ease-out",
       },

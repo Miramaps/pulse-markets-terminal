@@ -9,22 +9,22 @@ interface MobileTabsProps {
 export function MobileTabs({ children, labels }: MobileTabsProps) {
   return (
     <Tabs defaultValue="new" className="w-full h-full flex flex-col">
-      <TabsList className="grid w-full grid-cols-3 bg-canvas2 border-b border-light rounded-none h-12 p-1">
+      <TabsList className="grid w-full grid-cols-3 bg-card-solid border-b border-stroke rounded-none h-12 p-1">
         <TabsTrigger 
           value="new" 
-          className="data-[state=active]:bg-ink data-[state=active]:text-canvas rounded-xl text-sm font-medium"
+          className="data-[state=active]:bg-ink data-[state=active]:text-white rounded-xl text-sm font-medium"
         >
           {labels[0]}
         </TabsTrigger>
         <TabsTrigger 
           value="ending" 
-          className="data-[state=active]:bg-ink data-[state=active]:text-canvas rounded-xl text-sm font-medium"
+          className="data-[state=active]:bg-ink data-[state=active]:text-white rounded-xl text-sm font-medium"
         >
           {labels[1]}
         </TabsTrigger>
         <TabsTrigger 
           value="resolved" 
-          className="data-[state=active]:bg-ink data-[state=active]:text-canvas rounded-xl text-sm font-medium"
+          className="data-[state=active]:bg-ink data-[state=active]:text-white rounded-xl text-sm font-medium"
         >
           {labels[2]}
         </TabsTrigger>

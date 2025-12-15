@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ChevronDown, Minus, Plus, X } from 'lucide-react';
-import { Market } from '@/lib/mockData';
+import { ChevronDown, X } from 'lucide-react';
+import { Market, formatVolume } from '@/lib/mockData';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -9,14 +9,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useToast } from '@/hooks/use-toast';
 
 interface BottomBarProps {
   selectedMarket: Market | null;
   selectedCategory: string | null;
   onCategorySelect: (category: string | null) => void;
   onClearSelection: () => void;
-  onBuy: (marketId: string, side: 'yes' | 'no', amount: number) => void;
 }
 
 const categories = [
@@ -29,60 +27,45 @@ const categories = [
 ];
 
 const timeFilters = ['24h', '7d', '30d'];
-const presets = [5, 10, 25, 50];
 
 export function BottomBar({ 
   selectedMarket, 
   selectedCategory, 
   onCategorySelect, 
   onClearSelection,
-  onBuy 
 }: BottomBarProps) {
-  const [side, setSide] = useState<'yes' | 'no'>('yes');
-  const [amount, setAmount] = useState(10);
   const [timeFilter, setTimeFilter] = useState('24h');
-  const { toast } = useToast();
-
-  const handleBuy = () => {
-    if (!selectedMarket) return;
-    onBuy(selectedMarket.id, side, amount);
-    toast({
-      title: `Bought ${side.toUpperCase()}`,
-      description: `${amount} shares of "${selectedMarket.question.slice(0, 40)}…"`,
-    });
-    onClearSelection();
-  };
 
   const currentCategory = categories.find(c => c.id === selectedCategory)?.label || 'All';
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-4">
       <motion.div 
-        className="max-w-6xl mx-auto glass-panel rounded-2xl shadow-2xl"
+        className="max-w-5xl mx-auto bg-card-solid border border-stroke rounded-2xl card-shadow"
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
       >
-        <div className="px-5 py-4 flex items-center gap-6">
+        <div className="px-5 py-3 flex items-center gap-4">
           {/* Left: Filters */}
           <div className="flex items-center gap-2 shrink-0">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
-                  variant="ghost" 
+                  variant="outline" 
                   size="sm"
-                  className="h-9 gap-2 text-panel/70 hover:text-panel hover:bg-panel/10 rounded-xl"
+                  className="h-8 gap-2 bg-canvas2 border-stroke hover:border-gold rounded-lg text-sm"
                 >
                   {currentCategory}
                   <ChevronDown className="w-3.5 h-3.5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="glass-panel rounded-xl">
+              <DropdownMenuContent className="bg-card-solid border-stroke rounded-xl">
                 {categories.map((cat) => (
                   <DropdownMenuItem
                     key={cat.id ?? 'all'}
                     onClick={() => onCategorySelect(cat.id)}
-                    className={`text-sm ${selectedCategory === cat.id ? 'text-accent-blue' : 'text-panel'}`}
+                    className={`text-sm ${selectedCategory === cat.id ? 'text-accent-blue font-medium' : ''}`}
                   >
                     {cat.label}
                   </DropdownMenuItem>
@@ -90,15 +73,15 @@ export function BottomBar({
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <div className="flex items-center bg-panel/20 rounded-lg p-0.5">
+            <div className="flex items-center bg-canvas2 rounded-lg p-0.5 border border-stroke">
               {timeFilters.map((t) => (
                 <button
                   key={t}
                   onClick={() => setTimeFilter(t)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                  className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                     timeFilter === t
-                      ? 'bg-panel/30 text-panel'
-                      : 'text-panel/50 hover:text-panel'
+                      ? 'bg-card-solid text-ink shadow-sm'
+                      : 'text-muted-ink hover:text-ink'
                   }`}
                 >
                   {t}
@@ -107,7 +90,7 @@ export function BottomBar({
             </div>
           </div>
 
-          {/* Center: Selected Market or placeholder */}
+          {/* Center: Selected Market */}
           <div className="flex-1 min-w-0">
             <AnimatePresence mode="wait">
               {selectedMarket ? (
@@ -116,26 +99,27 @@ export function BottomBar({
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
-                  className="flex items-center gap-4"
+                  className="flex items-center gap-3"
                 >
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7 text-panel/50 hover:text-panel hover:bg-panel/10 shrink-0"
+                    className="h-6 w-6 text-muted-ink hover:text-ink shrink-0"
                     onClick={onClearSelection}
                   >
                     <X className="w-4 h-4" />
                   </Button>
-                  <p className="text-sm text-panel font-medium truncate max-w-md">
+                  <p className="text-sm text-ink font-medium truncate">
                     {selectedMarket.question}
                   </p>
-                  <div className="flex items-center gap-3 text-xs shrink-0">
-                    <span className="text-accent-blue font-semibold">
-                      YES {selectedMarket.yesPrice.toFixed(2)}
+                  <div className="flex items-center gap-2 text-xs text-muted-ink shrink-0">
+                    <span>{formatVolume(selectedMarket.volume)}</span>
+                    <span>•</span>
+                    <span className="text-green-600 font-medium">
+                      Y {selectedMarket.yesPrice.toFixed(2)}
                     </span>
-                    <span className="text-panel/30">•</span>
-                    <span className="text-accent-coral font-semibold">
-                      NO {selectedMarket.noPrice.toFixed(2)}
+                    <span className="text-red-500 font-medium">
+                      N {selectedMarket.noPrice.toFixed(2)}
                     </span>
                   </div>
                 </motion.div>
@@ -143,92 +127,18 @@ export function BottomBar({
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-sm text-panel/40"
+                  className="text-sm text-muted-ink"
                 >
-                  Select a market to trade
+                  Select a market or use YES/NO buttons on cards
                 </motion.p>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Right: Trade UI */}
-          <div className="flex items-center gap-3 shrink-0">
-            {/* YES/NO Toggle */}
-            <div className="flex items-center bg-panel/20 rounded-xl p-1">
-              <button
-                onClick={() => setSide('yes')}
-                className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
-                  side === 'yes'
-                    ? 'bg-accent-blue text-white shadow-lg'
-                    : 'text-panel/60 hover:text-panel'
-                }`}
-              >
-                YES
-              </button>
-              <button
-                onClick={() => setSide('no')}
-                className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
-                  side === 'no'
-                    ? 'bg-accent-coral text-white shadow-lg'
-                    : 'text-panel/60 hover:text-panel'
-                }`}
-              >
-                NO
-              </button>
-            </div>
-
-            {/* Amount */}
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-panel/50 hover:text-panel hover:bg-panel/10 rounded-lg"
-                onClick={() => setAmount(Math.max(1, amount - 5))}
-              >
-                <Minus className="w-4 h-4" />
-              </Button>
-              <div className="w-16 text-center">
-                <span className="text-lg font-semibold text-panel">${amount}</span>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-panel/50 hover:text-panel hover:bg-panel/10 rounded-lg"
-                onClick={() => setAmount(amount + 5)}
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-
-            {/* Presets */}
-            <div className="hidden lg:flex items-center gap-1">
-              {presets.map((p) => (
-                <button
-                  key={p}
-                  onClick={() => setAmount(p)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
-                    amount === p
-                      ? 'bg-gold/20 text-gold'
-                      : 'text-panel/40 hover:text-panel hover:bg-panel/10'
-                  }`}
-                >
-                  ${p}
-                </button>
-              ))}
-            </div>
-
-            {/* Action Button */}
-            <Button
-              onClick={handleBuy}
-              disabled={!selectedMarket}
-              className={`h-11 px-6 font-semibold rounded-xl transition-all ${
-                side === 'yes'
-                  ? 'bg-gradient-to-r from-accent-blue to-blue-600 hover:from-blue-600 hover:to-accent-blue text-white shadow-lg shadow-accent-blue/25'
-                  : 'bg-gradient-to-r from-accent-coral to-orange-500 hover:from-orange-500 hover:to-accent-coral text-white shadow-lg shadow-accent-coral/25'
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
-            >
-              Buy {side.toUpperCase()}
-            </Button>
+          {/* Right: Status */}
+          <div className="flex items-center gap-2 text-xs text-muted-ink shrink-0">
+            <div className="w-2 h-2 rounded-full bg-green-500" />
+            <span>Live</span>
           </div>
         </div>
       </motion.div>

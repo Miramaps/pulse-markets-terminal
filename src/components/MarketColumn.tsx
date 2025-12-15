@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import { Market } from '@/lib/mockData';
-import { MarketRow } from './MarketRow';
+import { MarketCard } from './MarketCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -21,7 +21,7 @@ import { AnimatePresence } from 'framer-motion';
 interface MarketColumnProps {
   title: string;
   markets: Market[];
-  selectedMarket: Market | null;
+  selectedMarketId: string | null;
   onSelectMarket: (market: Market) => void;
   priceFlashes: Record<string, boolean>;
   selectedCategory: string | null;
@@ -32,7 +32,7 @@ type SortOption = 'newest' | 'volume' | 'ending';
 export function MarketColumn({
   title,
   markets,
-  selectedMarket,
+  selectedMarketId,
   onSelectMarket,
   priceFlashes,
   selectedCategory,
@@ -75,14 +75,14 @@ export function MarketColumn({
   };
 
   return (
-    <div className="flex flex-col h-full glass-panel rounded-2xl overflow-hidden">
+    <div className="flex flex-col h-full bg-card-solid rounded-2xl border border-stroke card-shadow overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-dark flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <h2 className="font-display font-semibold text-sm uppercase tracking-wider text-panel">
+      <div className="px-4 py-3 border-b border-stroke flex items-center justify-between bg-card2-solid">
+        <div className="flex items-center gap-2">
+          <h2 className="font-display font-semibold text-xs uppercase tracking-wider text-ink">
             {title}
           </h2>
-          <span className="text-xs font-medium text-panel/40 bg-panel/20 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-medium text-muted-ink bg-canvas2 px-2 py-0.5 rounded-full">
             {filteredMarkets.length}
           </span>
         </div>
@@ -94,25 +94,25 @@ export function MarketColumn({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-panel/50 hover:text-panel hover:bg-panel/10"
+                className="h-7 w-7 text-muted-ink hover:text-ink"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-3.5 h-3.5" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-64 p-2 glass-panel rounded-xl" align="end">
+            <PopoverContent className="w-56 p-2 bg-card-solid border-stroke rounded-xl" align="end">
               <div className="relative">
                 <Input
                   placeholder="Search…"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="h-9 bg-transparent border-dark text-panel placeholder:text-panel/40 text-sm"
+                  className="h-8 bg-canvas2 border-stroke text-sm"
                   autoFocus
                 />
                 {search && (
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 text-panel/40"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-ink"
                     onClick={() => setSearch('')}
                   >
                     <X className="w-3 h-3" />
@@ -128,17 +128,17 @@ export function MarketColumn({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-panel/50 hover:text-panel hover:bg-panel/10"
+                className="h-7 w-7 text-muted-ink hover:text-ink"
               >
-                <SlidersHorizontal className="w-4 h-4" />
+                <SlidersHorizontal className="w-3.5 h-3.5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="glass-panel rounded-xl min-w-[120px]">
+            <DropdownMenuContent align="end" className="bg-card-solid border-stroke rounded-xl min-w-[100px]">
               {(Object.keys(sortLabels) as SortOption[]).map((opt) => (
                 <DropdownMenuItem
                   key={opt}
                   onClick={() => setSort(opt)}
-                  className={`text-sm ${sort === opt ? 'text-accent-blue' : 'text-panel'}`}
+                  className={`text-sm ${sort === opt ? 'text-accent-blue font-medium' : ''}`}
                 >
                   {sortLabels[opt]}
                 </DropdownMenuItem>
@@ -149,21 +149,21 @@ export function MarketColumn({
       </div>
 
       {/* Content */}
-      <ScrollArea className="flex-1 inset-scroll-shadow">
-        <div className="p-3 space-y-2 pb-24">
+      <ScrollArea className="flex-1 scroll-shadow">
+        <div className="p-3 space-y-3 pb-24">
           <AnimatePresence mode="popLayout">
             {filteredMarkets.map((market) => (
-              <MarketRow
+              <MarketCard
                 key={market.id}
                 market={market}
-                isSelected={selectedMarket?.id === market.id}
-                onSelect={onSelectMarket}
+                isSelected={selectedMarketId === market.id}
+                onSelect={() => onSelectMarket(market)}
                 priceFlash={priceFlashes[market.id]}
               />
             ))}
           </AnimatePresence>
           {filteredMarkets.length === 0 && (
-            <div className="text-center py-12 text-panel/40 text-sm">
+            <div className="text-center py-12 text-muted-ink text-sm">
               No markets found
             </div>
           )}

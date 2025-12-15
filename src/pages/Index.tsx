@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { TopNav } from '@/components/TopNav';
 import { BottomBar } from '@/components/BottomBar';
 import { MarketColumn } from '@/components/MarketColumn';
-import { MarketRow } from '@/components/MarketRow';
+import { MarketCard } from '@/components/MarketCard';
 import { CreateMarketModal } from '@/components/CreateMarketModal';
 import { MobileTabs } from '@/components/MobileTabs';
 import { initialMarkets, Market } from '@/lib/mockData';
@@ -16,7 +16,6 @@ const Index = () => {
   const [selectedMarket, setSelectedMarket] = useState<Market | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [priceFlashes, setPriceFlashes] = useState<Record<string, boolean>>({});
-  const [positions, setPositions] = useState<Array<{ marketId: string; side: 'yes' | 'no'; amount: number }>>([]);
   const { toast } = useToast();
 
   // Simulate live price updates
@@ -49,7 +48,7 @@ const Index = () => {
         });
 
         setPriceFlashes(newFlashes);
-        setTimeout(() => setPriceFlashes({}), 500);
+        setTimeout(() => setPriceFlashes({}), 400);
 
         return updated;
       });
@@ -65,10 +64,6 @@ const Index = () => {
       if (updated) setSelectedMarket(updated);
     }
   }, [markets, selectedMarket?.id]);
-
-  const handleBuy = useCallback((marketId: string, side: 'yes' | 'no', amount: number) => {
-    setPositions((prev) => [...prev, { marketId, side, amount }]);
-  }, []);
 
   const handleCreateMarket = useCallback((marketData: Omit<Market, 'id' | 'yesPrice' | 'noPrice' | 'volume' | 'traders' | 'createdAt' | 'status'>) => {
     const newMarket: Market = {
@@ -86,7 +81,7 @@ const Index = () => {
     
     toast({
       title: 'Market Created',
-      description: 'Your market is now live.',
+      description: 'Your market is now live!',
     });
   }, [toast]);
 
@@ -95,17 +90,17 @@ const Index = () => {
   const resolvedMarkets = markets.filter((m) => m.status === 'resolved');
 
   return (
-    <div className="min-h-screen bg-canvas relative">
+    <div className="min-h-screen relative">
       <TopNav onCreateMarket={() => setIsCreateModalOpen(true)} />
 
       {/* Main Content */}
-      <main className="h-[calc(100vh-4rem-5rem)] px-4 py-4">
+      <main className="h-[calc(100vh-4rem-4.5rem)] px-4 py-4">
         {/* Desktop: 3 columns */}
         <div className="hidden lg:grid lg:grid-cols-3 gap-4 h-full max-w-7xl mx-auto">
           <MarketColumn
             title="NEW"
             markets={newMarkets}
-            selectedMarket={selectedMarket}
+            selectedMarketId={selectedMarket?.id ?? null}
             onSelectMarket={setSelectedMarket}
             priceFlashes={priceFlashes}
             selectedCategory={selectedCategory}
@@ -113,7 +108,7 @@ const Index = () => {
           <MarketColumn
             title="ENDING"
             markets={endingMarkets}
-            selectedMarket={selectedMarket}
+            selectedMarketId={selectedMarket?.id ?? null}
             onSelectMarket={setSelectedMarket}
             priceFlashes={priceFlashes}
             selectedCategory={selectedCategory}
@@ -121,7 +116,7 @@ const Index = () => {
           <MarketColumn
             title="RESOLVED"
             markets={resolvedMarkets}
-            selectedMarket={selectedMarket}
+            selectedMarketId={selectedMarket?.id ?? null}
             onSelectMarket={setSelectedMarket}
             priceFlashes={priceFlashes}
             selectedCategory={selectedCategory}
@@ -132,16 +127,16 @@ const Index = () => {
         <div className="lg:hidden h-full">
           <MobileTabs labels={['New', 'Ending', 'Resolved']}>
             <ScrollArea className="h-full">
-              <div className="p-3 space-y-2 pb-24">
+              <div className="p-3 space-y-3 pb-24">
                 <AnimatePresence mode="popLayout">
                   {newMarkets
                     .filter((m) => !selectedCategory || m.category === selectedCategory)
                     .map((market) => (
-                      <MarketRow
+                      <MarketCard
                         key={market.id}
                         market={market}
                         isSelected={selectedMarket?.id === market.id}
-                        onSelect={setSelectedMarket}
+                        onSelect={() => setSelectedMarket(market)}
                         priceFlash={priceFlashes[market.id]}
                       />
                     ))}
@@ -149,16 +144,16 @@ const Index = () => {
               </div>
             </ScrollArea>
             <ScrollArea className="h-full">
-              <div className="p-3 space-y-2 pb-24">
+              <div className="p-3 space-y-3 pb-24">
                 <AnimatePresence mode="popLayout">
                   {endingMarkets
                     .filter((m) => !selectedCategory || m.category === selectedCategory)
                     .map((market) => (
-                      <MarketRow
+                      <MarketCard
                         key={market.id}
                         market={market}
                         isSelected={selectedMarket?.id === market.id}
-                        onSelect={setSelectedMarket}
+                        onSelect={() => setSelectedMarket(market)}
                         priceFlash={priceFlashes[market.id]}
                       />
                     ))}
@@ -166,16 +161,16 @@ const Index = () => {
               </div>
             </ScrollArea>
             <ScrollArea className="h-full">
-              <div className="p-3 space-y-2 pb-24">
+              <div className="p-3 space-y-3 pb-24">
                 <AnimatePresence mode="popLayout">
                   {resolvedMarkets
                     .filter((m) => !selectedCategory || m.category === selectedCategory)
                     .map((market) => (
-                      <MarketRow
+                      <MarketCard
                         key={market.id}
                         market={market}
                         isSelected={selectedMarket?.id === market.id}
-                        onSelect={setSelectedMarket}
+                        onSelect={() => setSelectedMarket(market)}
                         priceFlash={priceFlashes[market.id]}
                       />
                     ))}
@@ -191,7 +186,6 @@ const Index = () => {
         selectedCategory={selectedCategory}
         onCategorySelect={setSelectedCategory}
         onClearSelection={() => setSelectedMarket(null)}
-        onBuy={handleBuy}
       />
 
       <CreateMarketModal
