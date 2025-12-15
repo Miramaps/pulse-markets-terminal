@@ -27,17 +27,17 @@
     --accent: 42 45% 65%;
     --accent-blue: 222 100% 58%;
     
-    /* YES/NO Polymarket-style */
-    --yes-bg: 160 42% 21%;
-    --yes-border: 160 42% 29%;
-    --yes-text: 152 78% 85%;
-    --yes-hover: 160 42% 25%;
-    --yes-active: 160 42% 29%;
-    --no-bg: 348 34% 24%;
-    --no-border: 348 34% 33%;
-    --no-text: 352 100% 91%;
-    --no-hover: 348 34% 27%;
-    --no-active: 348 34% 33%;
+    /* YES/NO Polymarket-style (exact colors) */
+    --yes-bg: 168 35% 17%;
+    --yes-border: 168 35% 22%;
+    --yes-text: 142 71% 58%;
+    --yes-hover: 168 35% 20%;
+    --yes-active: 168 35% 22%;
+    --no-bg: 345 35% 18%;
+    --no-border: 345 35% 23%;
+    --no-text: 0 91% 71%;
+    --no-hover: 345 35% 21%;
+    --no-active: 345 35% 23%;
     
     /* Shadcn mappings */
     --background: var(--bg);
