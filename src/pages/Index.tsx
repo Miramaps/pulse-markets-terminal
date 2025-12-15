@@ -2,13 +2,13 @@ import { useState, useEffect, useCallback } from 'react';
 import { TopNav } from '@/components/TopNav';
 import { BottomBar } from '@/components/BottomBar';
 import { MarketColumn } from '@/components/MarketColumn';
-import { MarketCard } from '@/components/MarketCard';
 import { CreateMarketModal } from '@/components/CreateMarketModal';
 import { MobileTabs } from '@/components/MobileTabs';
 import { initialMarkets, Market } from '@/lib/mockData';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { MarketRow } from '@/components/MarketRow';
 import { useToast } from '@/hooks/use-toast';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Index = () => {
   const [markets, setMarkets] = useState<Market[]>(initialMarkets);
@@ -48,7 +48,7 @@ const Index = () => {
         });
 
         setPriceFlashes(newFlashes);
-        setTimeout(() => setPriceFlashes({}), 400);
+        setTimeout(() => setPriceFlashes({}), 150);
 
         return updated;
       });
@@ -90,13 +90,13 @@ const Index = () => {
   const resolvedMarkets = markets.filter((m) => m.status === 'resolved');
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen flex flex-col">
       <TopNav onCreateMarket={() => setIsCreateModalOpen(true)} />
 
-      {/* Main Content */}
-      <main className="h-[calc(100vh-4rem-4.5rem)] px-4 py-4">
+      {/* Main Content - Full Width */}
+      <main className="flex-1 px-4 md:px-6 2xl:px-8 py-4 pb-20">
         {/* Desktop: 3 columns */}
-        <div className="hidden lg:grid lg:grid-cols-3 gap-4 h-full max-w-7xl mx-auto">
+        <div className="hidden lg:grid lg:grid-cols-3 gap-3 h-[calc(100vh-7.5rem)]">
           <MarketColumn
             title="NEW"
             markets={newMarkets}
@@ -112,6 +112,7 @@ const Index = () => {
             onSelectMarket={setSelectedMarket}
             priceFlashes={priceFlashes}
             selectedCategory={selectedCategory}
+            showProgress
           />
           <MarketColumn
             title="RESOLVED"
@@ -124,55 +125,74 @@ const Index = () => {
         </div>
 
         {/* Mobile: Tabs */}
-        <div className="lg:hidden h-full">
+        <div className="lg:hidden h-[calc(100vh-7.5rem)]">
           <MobileTabs labels={['New', 'Ending', 'Resolved']}>
             <ScrollArea className="h-full">
-              <div className="p-3 space-y-3 pb-24">
+              <div className="bg-panel2 rounded-lg border border-stroke divide-y divide-stroke">
                 <AnimatePresence mode="popLayout">
                   {newMarkets
                     .filter((m) => !selectedCategory || m.category === selectedCategory)
                     .map((market) => (
-                      <MarketCard
+                      <motion.div
                         key={market.id}
-                        market={market}
-                        isSelected={selectedMarket?.id === market.id}
-                        onSelect={() => setSelectedMarket(market)}
-                        priceFlash={priceFlashes[market.id]}
-                      />
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <MarketRow
+                          market={market}
+                          isSelected={selectedMarket?.id === market.id}
+                          onSelect={() => setSelectedMarket(market)}
+                          priceFlash={priceFlashes[market.id]}
+                        />
+                      </motion.div>
                     ))}
                 </AnimatePresence>
               </div>
             </ScrollArea>
             <ScrollArea className="h-full">
-              <div className="p-3 space-y-3 pb-24">
+              <div className="bg-panel2 rounded-lg border border-stroke divide-y divide-stroke">
                 <AnimatePresence mode="popLayout">
                   {endingMarkets
                     .filter((m) => !selectedCategory || m.category === selectedCategory)
                     .map((market) => (
-                      <MarketCard
+                      <motion.div
                         key={market.id}
-                        market={market}
-                        isSelected={selectedMarket?.id === market.id}
-                        onSelect={() => setSelectedMarket(market)}
-                        priceFlash={priceFlashes[market.id]}
-                      />
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <MarketRow
+                          market={market}
+                          isSelected={selectedMarket?.id === market.id}
+                          onSelect={() => setSelectedMarket(market)}
+                          priceFlash={priceFlashes[market.id]}
+                          showProgress
+                        />
+                      </motion.div>
                     ))}
                 </AnimatePresence>
               </div>
             </ScrollArea>
             <ScrollArea className="h-full">
-              <div className="p-3 space-y-3 pb-24">
+              <div className="bg-panel2 rounded-lg border border-stroke divide-y divide-stroke">
                 <AnimatePresence mode="popLayout">
                   {resolvedMarkets
                     .filter((m) => !selectedCategory || m.category === selectedCategory)
                     .map((market) => (
-                      <MarketCard
+                      <motion.div
                         key={market.id}
-                        market={market}
-                        isSelected={selectedMarket?.id === market.id}
-                        onSelect={() => setSelectedMarket(market)}
-                        priceFlash={priceFlashes[market.id]}
-                      />
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <MarketRow
+                          market={market}
+                          isSelected={selectedMarket?.id === market.id}
+                          onSelect={() => setSelectedMarket(market)}
+                          priceFlash={priceFlashes[market.id]}
+                        />
+                      </motion.div>
                     ))}
                 </AnimatePresence>
               </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,65 +7,62 @@
 @layer base {
   :root {
     /* Canvas */
-    --bg: 40 38% 93%;
-    --bg2: 38 35% 89%;
+    --bg: 42 30% 93%;
+    --grid: 220 10% 7% / 0.05;
     
     /* Ink */
-    --ink: 228 15% 7%;
-    --muted: 228 15% 7% / 0.55;
-    --muted-foreground: 228 15% 7% / 0.45;
+    --ink: 220 10% 6%;
+    --muted: 220 10% 6% / 0.55;
+    --muted-foreground: 220 10% 6% / 0.45;
     
-    /* Surfaces (SOLID) */
-    --card: 42 50% 97%;
-    --card2: 40 42% 93%;
-    --stroke: 228 15% 7% / 0.10;
+    /* Terminal Surfaces */
+    --panel: 220 10% 7%;
+    --panel2: 220 12% 9%;
+    --row: 220 14% 10%;
+    --row-hover: 220 14% 13%;
+    --stroke: 0 0% 100% / 0.08;
+    --stroke2: 220 10% 6% / 0.10;
     
     /* Accents */
-    --gold: 38 45% 60%;
-    --blue: 222 100% 58%;
+    --accent: 42 45% 65%;
+    --accent-blue: 222 100% 58%;
     
-    /* YES/NO */
-    --yes-bg: 150 60% 92%;
-    --yes-stroke: 160 65% 28% / 0.35;
-    --yes-text: 162 65% 14%;
-    --no-bg: 15 100% 93%;
-    --no-stroke: 15 65% 42% / 0.35;
-    --no-text: 12 70% 21%;
-    
-    /* Categories */
-    --cat-crypto: 222 100% 58%;
-    --cat-politics: 262 100% 65%;
-    --cat-sports: 142 76% 36%;
-    --cat-pop: 334 100% 62%;
-    --cat-memes: 24 100% 59%;
+    /* YES/NO Professional */
+    --yes-bg: 160 50% 16%;
+    --yes-text: 140 100% 90%;
+    --yes-border: 140 100% 90% / 0.18;
+    --no-bg: 12 50% 16%;
+    --no-text: 15 100% 93%;
+    --no-border: 15 100% 93% / 0.18;
     
     /* Shadcn mappings */
     --background: var(--bg);
     --foreground: var(--ink);
-    --card-foreground: var(--ink);
-    --popover: var(--card);
-    --popover-foreground: var(--ink);
-    --primary: var(--blue);
+    --card: var(--panel);
+    --card-foreground: 0 0% 98%;
+    --popover: var(--panel);
+    --popover-foreground: 0 0% 98%;
+    --primary: var(--accent-blue);
     --primary-foreground: 0 0% 100%;
-    --secondary: var(--bg2);
-    --secondary-foreground: var(--ink);
-    --accent: var(--bg2);
-    --accent-foreground: var(--ink);
+    --secondary: var(--panel2);
+    --secondary-foreground: 0 0% 98%;
+    --accent: var(--row);
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: var(--stroke);
     --input: var(--stroke);
-    --ring: var(--blue);
-    --radius: 1rem;
+    --ring: var(--accent-blue);
+    --radius: 0.625rem;
 
-    --sidebar-background: var(--card);
-    --sidebar-foreground: var(--ink);
-    --sidebar-primary: var(--blue);
+    --sidebar-background: var(--panel);
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: var(--accent-blue);
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: var(--bg2);
-    --sidebar-accent-foreground: var(--ink);
+    --sidebar-accent: var(--row);
+    --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: var(--stroke);
-    --sidebar-ring: var(--blue);
+    --sidebar-ring: var(--accent-blue);
   }
 }
 
@@ -79,12 +76,14 @@
   }
 
   body {
-    @apply text-ink antialiased;
+    @apply antialiased;
     font-family: 'Inter', system-ui, sans-serif;
     background-color: hsl(var(--bg));
+    color: hsl(var(--ink));
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Layered pattern background */
+  /* Subtle grid pattern */
   body::before {
     content: '';
     position: fixed;
@@ -92,28 +91,13 @@
     pointer-events: none;
     z-index: -1;
     background:
-      /* Subtle grid */
-      linear-gradient(rgba(14,15,18,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(14,15,18,0.03) 1px, transparent 1px),
-      /* Topographic-like curves */
-      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 50 Q 25 30, 50 50 T 90 50' fill='none' stroke='rgba(14,15,18,0.025)' stroke-width='1'/%3E%3Cpath d='M10 70 Q 30 50, 50 70 T 90 70' fill='none' stroke='rgba(14,15,18,0.02)' stroke-width='1'/%3E%3Cpath d='M10 30 Q 35 10, 50 30 T 90 30' fill='none' stroke='rgba(14,15,18,0.02)' stroke-width='1'/%3E%3C/svg%3E"),
-      /* Base color */
+      linear-gradient(hsl(var(--grid)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid)) 1px, transparent 1px),
       hsl(var(--bg));
-    background-size: 32px 32px, 32px 32px, 200px 200px, auto;
+    background-size: 40px 40px, 40px 40px, auto;
   }
 
-  /* Noise overlay */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.025;
-  }
-
-  /* Hairline scrollbar */
+  /* Minimal scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -129,31 +113,41 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted));
+    background: hsl(0 0% 100% / 0.15);
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: 'Sora', 'Inter', system-ui, sans-serif;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Panel surfaces */
+  .bg-panel {
+    background-color: hsl(var(--panel));
+  }
+
+  .bg-panel2 {
+    background-color: hsl(var(--panel2));
+  }
+
+  .bg-row {
+    background-color: hsl(var(--row));
+  }
+
+  .bg-row-hover {
+    background-color: hsl(var(--row-hover));
   }
 
   .bg-canvas {
     background-color: hsl(var(--bg));
   }
 
-  .bg-canvas2 {
-    background-color: hsl(var(--bg2));
-  }
-
-  .bg-card-solid {
-    background-color: hsl(var(--card));
-  }
-
-  .bg-card2-solid {
-    background-color: hsl(var(--card2));
-  }
-
+  /* Text colors */
   .text-ink {
     color: hsl(var(--ink));
   }
@@ -162,90 +156,107 @@
     color: hsl(var(--muted));
   }
 
+  .text-light {
+    color: hsl(0 0% 98%);
+  }
+
+  .text-light-muted {
+    color: hsl(0 0% 98% / 0.6);
+  }
+
+  /* Borders */
   .border-stroke {
     border-color: hsl(var(--stroke));
   }
 
-  .text-gold {
-    color: hsl(var(--gold));
+  .border-stroke2 {
+    border-color: hsl(var(--stroke2));
   }
 
-  .bg-gold {
-    background-color: hsl(var(--gold));
+  /* Accents */
+  .text-accent {
+    color: hsl(var(--accent));
+  }
+
+  .bg-accent {
+    background-color: hsl(var(--accent));
   }
 
   .text-accent-blue {
-    color: hsl(var(--blue));
+    color: hsl(var(--accent-blue));
   }
 
   .bg-accent-blue {
-    background-color: hsl(var(--blue));
+    background-color: hsl(var(--accent-blue));
   }
 
   /* YES Button */
   .btn-yes {
     background-color: hsl(var(--yes-bg));
-    border: 1.5px solid hsl(var(--yes-stroke));
+    border: 1px solid hsl(var(--yes-border));
     color: hsl(var(--yes-text));
   }
 
   .btn-yes:hover {
-    border-color: hsl(160 65% 28% / 0.55);
-    box-shadow: 0 2px 8px hsl(160 65% 28% / 0.15);
+    background-color: hsl(160 50% 20%);
   }
 
   /* NO Button */
   .btn-no {
     background-color: hsl(var(--no-bg));
-    border: 1.5px solid hsl(var(--no-stroke));
+    border: 1px solid hsl(var(--no-border));
     color: hsl(var(--no-text));
   }
 
   .btn-no:hover {
-    border-color: hsl(15 65% 42% / 0.55);
-    box-shadow: 0 2px 8px hsl(15 65% 42% / 0.15);
+    background-color: hsl(12 50% 20%);
   }
 
-  /* Card shadow */
-  .card-shadow {
-    box-shadow: 0 4px 20px rgba(14, 15, 18, 0.08);
+  /* Terminal shadow */
+  .terminal-shadow {
+    box-shadow: 0 10px 35px rgba(15, 16, 18, 0.18);
   }
 
-  .card-shadow-hover {
-    box-shadow: 0 8px 30px rgba(14, 15, 18, 0.12);
-  }
-
-  /* Category colors */
-  .cat-crypto { background-color: hsl(var(--cat-crypto) / 0.12); color: hsl(var(--cat-crypto)); }
-  .cat-politics { background-color: hsl(var(--cat-politics) / 0.12); color: hsl(var(--cat-politics)); }
-  .cat-sports { background-color: hsl(var(--cat-sports) / 0.12); color: hsl(var(--cat-sports)); }
-  .cat-pop { background-color: hsl(var(--cat-pop) / 0.12); color: hsl(var(--cat-pop)); }
-  .cat-memes { background-color: hsl(var(--cat-memes) / 0.12); color: hsl(var(--cat-memes)); }
-
-  /* Inset scroll shadow */
-  .scroll-shadow {
-    box-shadow: 
-      inset 0 8px 12px -8px rgba(14,15,18,0.08),
-      inset 0 -8px 12px -8px rgba(14,15,18,0.08);
-  }
-
-  /* New indicator pulse */
-  @keyframes pulse-gold {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.2); }
-  }
-
-  .pulse-new {
-    animation: pulse-gold 2s ease-in-out infinite;
-  }
-
-  /* Price flash */
+  /* Price flash animation */
   @keyframes price-flash {
-    0%, 100% { background-color: transparent; }
-    50% { background-color: hsl(var(--gold) / 0.2); }
+    0%, 100% { opacity: 1; }
+    50% { color: hsl(var(--accent)); }
   }
 
   .price-flash {
-    animation: price-flash 0.4s ease-out;
+    animation: price-flash 0.15s ease-out;
+  }
+
+  /* Progress bar for ending */
+  .progress-bar {
+    height: 2px;
+    background: hsl(var(--stroke));
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: hsl(var(--accent));
+    transition: width 0.3s ease;
+  }
+
+  /* Row accent bar */
+  .row-accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: transparent;
+    transition: background 0.15s ease;
+  }
+
+  .row-accent-bar.active {
+    background: hsl(var(--accent-blue));
+  }
+
+  .row-accent-bar.hover {
+    background: hsl(var(--accent));
   }
 }

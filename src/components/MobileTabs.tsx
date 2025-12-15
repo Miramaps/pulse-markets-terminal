@@ -1,43 +1,36 @@
-import { ReactNode } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useState } from 'react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 interface MobileTabsProps {
-  children: [ReactNode, ReactNode, ReactNode];
-  labels: [string, string, string];
+  labels: string[];
+  children: React.ReactNode[];
 }
 
-export function MobileTabs({ children, labels }: MobileTabsProps) {
+export function MobileTabs({ labels, children }: MobileTabsProps) {
+  const [activeTab, setActiveTab] = useState(labels[0]);
+
   return (
-    <Tabs defaultValue="new" className="w-full h-full flex flex-col">
-      <TabsList className="grid w-full grid-cols-3 bg-card-solid border-b border-stroke rounded-none h-12 p-1">
-        <TabsTrigger 
-          value="new" 
-          className="data-[state=active]:bg-ink data-[state=active]:text-white rounded-xl text-sm font-medium"
-        >
-          {labels[0]}
-        </TabsTrigger>
-        <TabsTrigger 
-          value="ending" 
-          className="data-[state=active]:bg-ink data-[state=active]:text-white rounded-xl text-sm font-medium"
-        >
-          {labels[1]}
-        </TabsTrigger>
-        <TabsTrigger 
-          value="resolved" 
-          className="data-[state=active]:bg-ink data-[state=active]:text-white rounded-xl text-sm font-medium"
-        >
-          {labels[2]}
-        </TabsTrigger>
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col h-full">
+      <TabsList className="w-full justify-start bg-panel border-b border-stroke rounded-none p-0 h-10 shrink-0">
+        {labels.map((label) => (
+          <TabsTrigger
+            key={label}
+            value={label}
+            className="flex-1 h-full rounded-none border-b-2 border-transparent text-xs font-medium text-light-muted data-[state=active]:border-accent data-[state=active]:text-light data-[state=active]:bg-transparent"
+          >
+            {label}
+          </TabsTrigger>
+        ))}
       </TabsList>
-      <TabsContent value="new" className="flex-1 mt-0 overflow-hidden">
-        {children[0]}
-      </TabsContent>
-      <TabsContent value="ending" className="flex-1 mt-0 overflow-hidden">
-        {children[1]}
-      </TabsContent>
-      <TabsContent value="resolved" className="flex-1 mt-0 overflow-hidden">
-        {children[2]}
-      </TabsContent>
+      {labels.map((label, index) => (
+        <TabsContent
+          key={label}
+          value={label}
+          className="flex-1 mt-0 overflow-hidden"
+        >
+          {children[index]}
+        </TabsContent>
+      ))}
     </Tabs>
   );
 }
