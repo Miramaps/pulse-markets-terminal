@@ -136,10 +136,10 @@ export function MarketRow({ market, isSelected, onSelect, priceFlash, showProgre
         </div>
 
         {/* YES/NO Buttons */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={handleYes}
-            className={`h-9 px-3.5 rounded-[10px] text-[13px] font-medium btn-yes min-w-[85px] tabular-nums ${
+            className={`h-7 px-2.5 rounded-lg text-[12px] font-medium btn-yes min-w-[70px] tabular-nums ${
               flashYes ? 'price-flash' : ''
             }`}
           >
@@ -147,7 +147,7 @@ export function MarketRow({ market, isSelected, onSelect, priceFlash, showProgre
           </button>
           <button
             onClick={handleNo}
-            className={`h-9 px-3.5 rounded-[10px] text-[13px] font-medium btn-no min-w-[85px] tabular-nums ${
+            className={`h-7 px-2.5 rounded-lg text-[12px] font-medium btn-no min-w-[70px] tabular-nums ${
               flashNo ? 'price-flash' : ''
             }`}
           >

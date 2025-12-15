@@ -21,45 +21,49 @@ export function TopNav({ onCreateMarket }: TopNavProps) {
 
   return (
     <header className="sticky top-0 z-50 bg-panel border-b border-stroke">
-      <div className="h-12 px-4 md:px-6 2xl:px-8 flex items-center justify-between gap-4">
-        {/* Left: Logo */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center">
-            <span className="text-panel font-display font-bold text-xs">P</span>
+      <div className="h-12 px-4 md:px-6 2xl:px-8 flex items-center gap-4">
+        {/* Left: Logo + Nav Links */}
+        <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center">
+              <span className="text-panel font-display font-bold text-xs">P</span>
+            </div>
+            <span className="font-display font-semibold text-light tracking-tight text-sm hidden sm:block">
+              PULSEMARKETS
+            </span>
           </div>
-          <span className="font-display font-semibold text-light tracking-tight text-sm hidden sm:block">
-            PULSEMARKETS
-          </span>
+
+          {/* Nav Links - closer to logo */}
+          <nav className="hidden lg:flex items-center gap-0.5 ml-2">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => setActiveNav(item)}
+                className={`px-2.5 py-1.5 text-[13px] font-medium transition-colors rounded-md ${
+                  activeNav === item 
+                    ? 'text-light bg-row' 
+                    : 'text-light-muted hover:text-light hover:bg-row/50'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </nav>
         </div>
 
-        {/* Center: Nav Links */}
-        <nav className="hidden lg:flex items-center gap-0.5">
-          {navItems.map((item) => (
-            <button
-              key={item}
-              onClick={() => setActiveNav(item)}
-              className={`px-3 py-1.5 text-[13px] font-medium transition-colors rounded-md ${
-                activeNav === item 
-                  ? 'text-light bg-row' 
-                  : 'text-light-muted hover:text-light hover:bg-row/50'
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </nav>
-
-        {/* Right: Actions */}
-        <div className="flex items-center gap-2">
-          {/* Search */}
-          <div className="relative hidden md:block">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-light-muted" />
+        {/* Center: Search */}
+        <div className="flex-1 flex justify-center">
+          <div className="relative hidden md:block w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-light-muted" />
             <Input
-              placeholder="Search…"
-              className="pl-9 h-8 w-44 bg-row border-stroke rounded-lg text-xs text-light placeholder:text-light-muted focus:ring-1 focus:ring-accent-blue/50"
+              placeholder="Search markets…"
+              className="pl-10 h-9 w-full bg-row border-stroke rounded-lg text-sm text-light placeholder:text-light-muted focus:ring-1 focus:ring-accent-blue/50"
             />
           </div>
+        </div>
 
+        {/* Right: Actions */}
+        <div className="flex items-center gap-2 shrink-0">
           {/* Chain */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
