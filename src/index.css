@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,190 +6,68 @@
 
 @layer base {
   :root {
-    /* PULSEMARKETS Dark Terminal Theme */
-    --bg: 72 25% 4%;
-    --panel: 72 14% 7%;
-    --panel2: 72 12% 9%;
-    --border: 42 35% 63% / 0.14;
-    --border-hover: 42 35% 63% / 0.28;
-    
-    --text: 40 30% 92%;
-    --muted: 40 20% 72%;
-    --muted-foreground: 40 15% 55%;
-    
-    --accent: 42 38% 63%;
-    --accent2: 42 28% 52%;
-    --accent-glow: 42 38% 63% / 0.15;
-    
-    --success: 120 20% 35%;
-    --success-muted: 120 15% 25%;
-    --danger: 0 25% 40%;
-    --danger-muted: 0 20% 30%;
-    
-    /* Shadcn mappings */
+    --bg: 60 10% 3%;
+    --panel: 60 10% 4%;
+    --card: 60 8% 6%;
+    --border: 42 30% 74% / 0.14;
+    --border-hover: 42 30% 74% / 0.28;
+    --text: 45 35% 95%;
+    --muted: 45 20% 75%;
+    --muted-foreground: 45 15% 55%;
+    --accent: 42 35% 74%;
+    --accent2: 42 35% 74% / 0.28;
     --background: var(--bg);
     --foreground: var(--text);
-    --card: var(--panel);
+    --card: var(--card);
     --card-foreground: var(--text);
     --popover: var(--panel);
     --popover-foreground: var(--text);
     --primary: var(--accent);
-    --primary-foreground: 72 25% 4%;
-    --secondary: var(--panel2);
+    --primary-foreground: 60 10% 3%;
+    --secondary: var(--card);
     --secondary-foreground: var(--text);
-    --muted: var(--panel2);
-    --accent: var(--panel2);
+    --muted: var(--card);
+    --accent: var(--card);
     --accent-foreground: var(--text);
-    --destructive: var(--danger);
+    --destructive: 0 20% 50%;
     --destructive-foreground: var(--text);
     --border: var(--border);
     --input: var(--border);
-    --ring: 42 38% 63%;
-    --radius: 0.75rem;
-
+    --ring: 42 35% 74%;
+    --radius: 0.875rem;
     --sidebar-background: var(--panel);
     --sidebar-foreground: var(--text);
     --sidebar-primary: var(--accent);
-    --sidebar-primary-foreground: 72 25% 4%;
-    --sidebar-accent: var(--panel2);
+    --sidebar-primary-foreground: 60 10% 3%;
+    --sidebar-accent: var(--card);
     --sidebar-accent-foreground: var(--text);
     --sidebar-border: var(--border);
-    --sidebar-ring: 42 38% 63%;
+    --sidebar-ring: 42 35% 74%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
+  * { @apply border-border; }
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
   }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--panel));
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border-hover));
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--accent2));
-  }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 2px; }
 }
 
 @layer utilities {
-  .font-mono {
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .noise-overlay {
-    position: relative;
-  }
-
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .noise-overlay { position: relative; }
   .noise-overlay::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.015;
     pointer-events: none;
     mix-blend-mode: overlay;
-    border-radius: inherit;
   }
-
-  .glass-panel {
-    @apply bg-panel border border-border rounded-xl;
-    backdrop-filter: blur(8px);
-  }
-
-  .glass-card {
-    @apply bg-panel2 border border-border rounded-lg;
-  }
-
-  .accent-glow {
-    box-shadow: 0 0 20px hsl(var(--accent-glow));
-  }
-
-  .text-accent {
-    color: hsl(var(--accent));
-  }
-
-  .text-accent2 {
-    color: hsl(var(--accent2));
-  }
-
-  .bg-accent {
-    background-color: hsl(var(--accent));
-  }
-
-  .bg-panel {
-    background-color: hsl(var(--panel));
-  }
-
-  .bg-panel2 {
-    background-color: hsl(var(--panel2));
-  }
-
-  .border-border {
-    border-color: hsl(var(--border));
-  }
-
-  .border-border-hover {
-    border-color: hsl(var(--border-hover));
-  }
-
-  .text-muted-custom {
-    color: hsl(var(--muted));
-  }
-
-  .text-muted-dim {
-    color: hsl(var(--muted-foreground));
-  }
-
-  .bg-success {
-    background-color: hsl(var(--success));
-  }
-
-  .bg-success-muted {
-    background-color: hsl(var(--success-muted));
-  }
-
-  .bg-danger {
-    background-color: hsl(var(--danger));
-  }
-
-  .bg-danger-muted {
-    background-color: hsl(var(--danger-muted));
-  }
-
-  .yes-button {
-    @apply bg-success-muted text-emerald-300 hover:bg-success transition-colors font-mono text-sm px-3 py-1.5 rounded-lg;
-  }
-
-  .no-button {
-    @apply bg-danger-muted text-red-300 hover:bg-danger transition-colors font-mono text-sm px-3 py-1.5 rounded-lg;
-  }
-
-  .probability-bar {
-    @apply h-1 rounded-full overflow-hidden bg-panel;
-  }
-
-  .probability-yes {
-    @apply h-full bg-emerald-600/60 transition-all duration-500;
-  }
-
-  .probability-no {
-    @apply h-full bg-red-600/40;
-  }
+  .glass-blur { backdrop-filter: blur(12px); }
 }
