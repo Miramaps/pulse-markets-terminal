@@ -2,28 +2,32 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "2rem",
-      screens: { "2xl": "1400px" },
+      screens: {
+        "2xl": "1400px",
+      },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        canvas: "hsl(var(--bg))",
-        canvas2: "hsl(var(--bg2))",
-        ink: "hsl(var(--ink))",
-        "card-solid": "hsl(var(--card))",
-        stroke: "hsl(var(--stroke))",
-        gold: "hsl(var(--gold))",
-        "accent-blue": "hsl(var(--blue))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -62,17 +66,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        panel: "hsl(var(--panel))",
+        panel2: "hsl(var(--panel2))",
+        row: "hsl(var(--row))",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        xl: "1.125rem",
-        "2xl": "1.25rem",
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Sora', 'Inter', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {
@@ -83,20 +84,20 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "fade-in": {
-          from: { opacity: "0", transform: "translateY(-6px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+        "price-flash": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { color: "hsl(var(--accent))" },
         },
-        "slide-up": {
-          from: { opacity: "0", transform: "translateY(8px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(-4px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.3s ease-out",
-        "slide-up": "slide-up 0.25s ease-out",
+        "price-flash": "price-flash 0.15s ease-out",
+        "fade-in": "fade-in 0.2s ease-out",
       },
     },
   },

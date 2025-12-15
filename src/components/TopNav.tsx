@@ -20,44 +20,43 @@ export function TopNav({ onCreateMarket }: TopNavProps) {
   const [activeNav, setActiveNav] = useState('Markets');
 
   return (
-    <header className="sticky top-0 z-50 bg-card-solid border-b border-stroke">
-      <div className="h-16 px-6 flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-50 bg-panel border-b border-stroke">
+      <div className="h-12 px-4 md:px-6 2xl:px-8 flex items-center justify-between gap-4">
         {/* Left: Logo */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-ink flex items-center justify-center">
-            <span className="text-white font-display font-bold text-sm">P</span>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center">
+            <span className="text-panel font-display font-bold text-xs">P</span>
           </div>
-          <span className="font-display font-semibold text-ink tracking-tight text-lg hidden sm:block">
+          <span className="font-display font-semibold text-light tracking-tight text-sm hidden sm:block">
             PULSEMARKETS
           </span>
         </div>
 
         {/* Center: Nav Links */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-0.5">
           {navItems.map((item) => (
             <button
               key={item}
               onClick={() => setActiveNav(item)}
-              className={`relative px-4 py-2 text-sm font-medium transition-colors ${
-                activeNav === item ? 'text-ink' : 'text-muted-ink hover:text-ink'
+              className={`px-3 py-1.5 text-[13px] font-medium transition-colors rounded-md ${
+                activeNav === item 
+                  ? 'text-light bg-row' 
+                  : 'text-light-muted hover:text-light hover:bg-row/50'
               }`}
             >
               {item}
-              {activeNav === item && (
-                <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-gold rounded-full" />
-              )}
             </button>
           ))}
         </nav>
 
-        {/* Right: Search + Actions */}
-        <div className="flex items-center gap-3">
+        {/* Right: Actions */}
+        <div className="flex items-center gap-2">
           {/* Search */}
           <div className="relative hidden md:block">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-ink" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-light-muted" />
             <Input
-              placeholder="Search markets…"
-              className="pl-11 h-10 w-56 bg-canvas2 border-stroke rounded-full text-sm placeholder:text-muted-ink focus:ring-2 focus:ring-accent-blue/20"
+              placeholder="Search…"
+              className="pl-9 h-8 w-44 bg-row border-stroke rounded-lg text-xs text-light placeholder:text-light-muted focus:ring-1 focus:ring-accent-blue/50"
             />
           </div>
 
@@ -65,47 +64,47 @@ export function TopNav({ onCreateMarket }: TopNavProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button 
-                variant="outline" 
+                variant="ghost" 
                 size="sm" 
-                className="h-9 gap-2 bg-card-solid border-stroke hover:border-gold rounded-xl"
+                className="h-8 gap-1.5 text-light-muted hover:text-light hover:bg-row text-xs px-2.5"
               >
-                <span className="font-medium text-sm">{chain}</span>
-                <ChevronDown className="w-3.5 h-3.5 text-muted-ink" />
+                {chain}
+                <ChevronDown className="w-3 h-3" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-card-solid border-stroke rounded-xl">
-              <DropdownMenuItem onClick={() => setChain('SOL')}>
-                <span className="mr-2">◎</span> Solana
+            <DropdownMenuContent align="end" className="bg-panel border-stroke rounded-lg min-w-[120px]">
+              <DropdownMenuItem onClick={() => setChain('SOL')} className="text-light text-xs">
+                <span className="mr-2 text-light-muted">◎</span> Solana
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setChain('ETH')}>
-                <span className="mr-2">Ξ</span> Ethereum
+              <DropdownMenuItem onClick={() => setChain('ETH')} className="text-light text-xs">
+                <span className="mr-2 text-light-muted">Ξ</span> Ethereum
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
           {/* Balance */}
-          <div className="hidden sm:flex items-center gap-2 px-3 h-9 bg-canvas2 border border-stroke rounded-xl">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
-            <span className="text-sm font-medium text-ink">0.033 {chain}</span>
+          <div className="hidden sm:flex items-center gap-1.5 px-2.5 h-8 bg-row border border-stroke rounded-lg">
+            <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+            <span className="text-xs font-medium text-light tabular-nums">0.033</span>
           </div>
 
           {/* Connect */}
           <Button 
-            variant="outline" 
+            variant="ghost" 
             size="sm" 
-            className="h-9 gap-2 bg-card-solid border-stroke hover:border-gold rounded-xl"
+            className="h-8 gap-1.5 text-light-muted hover:text-light hover:bg-row text-xs px-2.5"
           >
-            <Wallet className="w-4 h-4" />
-            <span className="hidden sm:inline font-medium">Connect</span>
+            <Wallet className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Connect</span>
           </Button>
 
           {/* Create */}
           <Button 
             onClick={onCreateMarket}
             size="sm"
-            className="h-9 gap-2 bg-ink text-white hover:bg-ink/90 rounded-xl font-medium"
+            className="h-8 gap-1.5 bg-accent text-panel hover:bg-accent/90 rounded-lg text-xs font-medium px-3"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Create</span>
           </Button>
         </div>
