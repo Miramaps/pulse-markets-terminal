@@ -11,6 +11,8 @@ export interface Market {
   status: 'new' | 'ending' | 'resolved';
   sourceUrl?: string;
   liquidity?: number;
+  shares: number;
+  isWatchlisted?: boolean;
 }
 
 export const categoryIcons: Record<Market['category'], string> = {
@@ -42,7 +44,20 @@ function generateMarket(index: number, status: Market['status']): Market {
     createdAt = randomDate(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000));
     resolvesAt = randomDate(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000));
   }
-  return { id: `market-${status}-${index}`, question: questions[index % questions.length], category: categories[Math.floor(Math.random() * categories.length)], yesPrice: Number(yesPrice.toFixed(2)), noPrice: Number((1 - yesPrice).toFixed(2)), volume: Math.floor(Math.random() * 500000) + 1000, traders: Math.floor(Math.random() * 1000) + 10, createdAt, resolvesAt, status };
+  return { 
+    id: `market-${status}-${index}`, 
+    question: questions[index % questions.length], 
+    category: categories[Math.floor(Math.random() * categories.length)], 
+    yesPrice: Number(yesPrice.toFixed(2)), 
+    noPrice: Number((1 - yesPrice).toFixed(2)), 
+    volume: Math.floor(Math.random() * 500000) + 1000, 
+    traders: Math.floor(Math.random() * 1000) + 10, 
+    createdAt, 
+    resolvesAt, 
+    status,
+    shares: Math.floor(Math.random() * 5000) + 50,
+    isWatchlisted: Math.random() > 0.8,
+  };
 }
 
 export const initialMarkets: Market[] = [
@@ -75,7 +90,18 @@ export function formatTimeAgo(date: Date): string {
   const diffMins = Math.floor(diffMs / 60000);
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
-  if (diffMins < 60) return `${diffMins}m`;
-  if (diffHours < 24) return `${diffHours}h`;
-  return `${diffDays}d`;
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  return `${diffDays}d ago`;
+}
+
+export function formatMarketAge(date: Date): string {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+  if (diffMins < 60) return `${diffMins}m old`;
+  if (diffHours < 24) return `${diffHours}h old`;
+  return `${diffDays}d old`;
 }

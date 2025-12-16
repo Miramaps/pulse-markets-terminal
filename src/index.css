@@ -6,45 +6,45 @@
 
 @layer base {
   :root {
-    /* Canvas */
-    --bg: 42 30% 93%;
-    --grid: 220 10% 7% / 0.05;
+    /* Canvas - Dark, clean background */
+    --bg: 220 15% 6%;
+    --grid: 220 10% 100% / 0.02;
     
     /* Ink */
-    --ink: 220 10% 6%;
-    --muted: 220 10% 6% / 0.55;
-    --muted-foreground: 220 10% 6% / 0.45;
+    --ink: 0 0% 95%;
+    --muted: 0 0% 95% / 0.55;
+    --muted-foreground: 0 0% 95% / 0.45;
     
-    /* Terminal Surfaces */
-    --panel: 220 10% 7%;
-    --panel2: 220 12% 9%;
-    --row: 220 14% 10%;
-    --row-hover: 220 14% 13%;
-    --stroke: 0 0% 100% / 0.08;
-    --stroke2: 220 10% 6% / 0.10;
+    /* Terminal Surfaces - More transparent */
+    --panel: 220 15% 8% / 0.6;
+    --panel2: 220 15% 10% / 0.4;
+    --row: 220 15% 12% / 0.3;
+    --row-hover: 220 15% 18% / 0.5;
+    --stroke: 0 0% 100% / 0.12;
+    --stroke2: 0 0% 100% / 0.08;
     
-    /* Accents */
-    --accent: 42 45% 65%;
-    --accent-blue: 222 100% 58%;
+    /* Accents - Subtle cyan/teal instead of beige */
+    --accent: 180 50% 50%;
+    --accent-blue: 210 100% 60%;
     
-    /* YES/NO Polymarket-style (exact colors) */
-    --yes-bg: 168 35% 17%;
-    --yes-border: 168 35% 22%;
-    --yes-text: 142 71% 58%;
-    --yes-hover: 168 35% 20%;
-    --yes-active: 168 35% 22%;
-    --no-bg: 345 35% 18%;
-    --no-border: 345 35% 23%;
-    --no-text: 0 91% 71%;
-    --no-hover: 345 35% 21%;
-    --no-active: 345 35% 23%;
+    /* YES/NO Polymarket-style */
+    --yes-bg: 160 40% 12% / 0.8;
+    --yes-border: 160 40% 25% / 0.5;
+    --yes-text: 145 70% 55%;
+    --yes-hover: 160 40% 16% / 0.9;
+    --yes-active: 160 40% 20%;
+    --no-bg: 0 40% 14% / 0.8;
+    --no-border: 0 40% 25% / 0.5;
+    --no-text: 0 85% 65%;
+    --no-hover: 0 40% 18% / 0.9;
+    --no-active: 0 40% 22%;
     
     /* Shadcn mappings */
     --background: var(--bg);
     --foreground: var(--ink);
     --card: var(--panel);
     --card-foreground: 0 0% 98%;
-    --popover: var(--panel);
+    --popover: 220 15% 10%;
     --popover-foreground: 0 0% 98%;
     --primary: var(--accent-blue);
     --primary-foreground: 0 0% 100%;
@@ -57,7 +57,7 @@
     --border: var(--stroke);
     --input: var(--stroke);
     --ring: var(--accent-blue);
-    --radius: 0.625rem;
+    --radius: 0.75rem;
 
     --sidebar-background: var(--panel);
     --sidebar-foreground: 0 0% 98%;
@@ -87,24 +87,23 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Subtle grid pattern */
+  /* Subtle gradient background instead of grid */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: -1;
-    background:
-      linear-gradient(hsl(var(--grid)) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--grid)) 1px, transparent 1px),
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210 60% 15% / 0.3), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 100%, hsl(180 40% 10% / 0.2), transparent),
       hsl(var(--bg));
-    background-size: 40px 40px, 40px 40px, auto;
   }
 
   /* Minimal scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
 
   ::-webkit-scrollbar-track {
@@ -112,12 +111,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--stroke));
-    border-radius: 3px;
+    background: hsl(0 0% 100% / 0.1);
+    border-radius: 2px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(0 0% 100% / 0.15);
+    background: hsl(0 0% 100% / 0.2);
   }
 }
 
@@ -130,13 +129,17 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Panel surfaces */
+  /* Panel surfaces - glassmorphism */
   .bg-panel {
     background-color: hsl(var(--panel));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .bg-panel2 {
     background-color: hsl(var(--panel2));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   .bg-row {
@@ -161,11 +164,11 @@
   }
 
   .text-light {
-    color: hsl(0 0% 98%);
+    color: hsl(0 0% 96%);
   }
 
   .text-light-muted {
-    color: hsl(0 0% 98% / 0.6);
+    color: hsl(0 0% 96% / 0.5);
   }
 
   /* Borders */
@@ -194,41 +197,51 @@
     background-color: hsl(var(--accent-blue));
   }
 
-  /* YES Button - Polymarket style */
+  /* YES Button - Clean, modern */
   .btn-yes {
     background-color: hsl(var(--yes-bg));
     border: 1px solid hsl(var(--yes-border));
     color: hsl(var(--yes-text));
-    transition: background-color 0.15s ease;
+    transition: all 0.2s ease;
+    font-weight: 500;
   }
 
   .btn-yes:hover {
     background-color: hsl(var(--yes-hover));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(160 50% 30% / 0.2);
   }
 
   .btn-yes:active {
     background-color: hsl(var(--yes-active));
+    transform: translateY(0);
   }
 
-  /* NO Button - Polymarket style */
+  /* NO Button - Clean, modern */
   .btn-no {
     background-color: hsl(var(--no-bg));
     border: 1px solid hsl(var(--no-border));
     color: hsl(var(--no-text));
-    transition: background-color 0.15s ease;
+    transition: all 0.2s ease;
+    font-weight: 500;
   }
 
   .btn-no:hover {
     background-color: hsl(var(--no-hover));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(0 50% 30% / 0.2);
   }
 
   .btn-no:active {
     background-color: hsl(var(--no-active));
+    transform: translateY(0);
   }
 
-  /* Terminal shadow */
+  /* Terminal shadow - softer */
   .terminal-shadow {
-    box-shadow: 0 10px 35px rgba(15, 16, 18, 0.18);
+    box-shadow: 
+      0 4px 24px rgba(0, 0, 0, 0.3),
+      0 0 0 1px hsl(0 0% 100% / 0.05);
   }
 
   /* Price flash animation */
@@ -244,14 +257,14 @@
   /* Progress bar for ending */
   .progress-bar {
     height: 2px;
-    background: hsl(var(--stroke));
+    background: hsl(0 0% 100% / 0.1);
     border-radius: 1px;
     overflow: hidden;
   }
 
   .progress-bar-fill {
     height: 100%;
-    background: hsl(var(--accent));
+    background: linear-gradient(90deg, hsl(var(--accent-blue)), hsl(var(--accent)));
     transition: width 0.3s ease;
   }
 
@@ -263,14 +276,21 @@
     bottom: 0;
     width: 2px;
     background: transparent;
-    transition: background 0.15s ease;
+    transition: background 0.2s ease;
+    border-radius: 0 1px 1px 0;
   }
 
   .row-accent-bar.active {
     background: hsl(var(--accent-blue));
+    box-shadow: 0 0 8px hsl(var(--accent-blue) / 0.5);
   }
 
   .row-accent-bar.hover {
     background: hsl(var(--accent));
+  }
+
+  /* Divide lines - very subtle */
+  .divide-stroke > * + * {
+    border-top: 1px solid hsl(0 0% 100% / 0.12);
   }
 }
