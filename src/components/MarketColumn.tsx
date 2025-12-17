@@ -61,7 +61,7 @@ const sortConfig: Record<SortOption, { icon: React.ReactNode; color: string }> =
   oldest: { icon: <Clock className="w-3.5 h-3.5" />, color: 'text-slate-400' },
   volume: { icon: <TrendingUp className="w-3.5 h-3.5" />, color: 'text-emerald-400' },
   ending: { icon: <CalendarClock className="w-3.5 h-3.5" />, color: 'text-amber-400' },
-  traders: { icon: <Users className="w-3.5 h-3.5" />, color: 'text-blue-400' },
+  traders: { icon: <Users className="w-3.5 h-3.5" />, color: 'text-sky-400' },
   'yes-high': { icon: <ThumbsUp className="w-3.5 h-3.5" />, color: 'text-emerald-400' },
   'no-high': { icon: <ThumbsDown className="w-3.5 h-3.5" />, color: 'text-rose-400' },
 };
@@ -69,7 +69,7 @@ const sortConfig: Record<SortOption, { icon: React.ReactNode; color: string }> =
 // Category icons and colors
 const categoryConfig: Record<string, { icon: React.ReactNode; color: string; bg: string }> = {
   crypto: { icon: <Bitcoin className="w-3.5 h-3.5" />, color: 'text-orange-400', bg: 'bg-orange-500/10' },
-  politics: { icon: <Vote className="w-3.5 h-3.5" />, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+  politics: { icon: <Vote className="w-3.5 h-3.5" />, color: 'text-sky-400', bg: 'bg-sky-500/10' },
   sports: { icon: <Trophy className="w-3.5 h-3.5" />, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
   pop: { icon: <Tv className="w-3.5 h-3.5" />, color: 'text-pink-400', bg: 'bg-pink-500/10' },
   memes: { icon: <Dog className="w-3.5 h-3.5" />, color: 'text-amber-400', bg: 'bg-amber-500/10' },
@@ -375,14 +375,14 @@ export function MarketColumn({
                 )}
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[320px] p-0 bg-panel/95 backdrop-blur-xl border-stroke/50 rounded-2xl gap-0 shadow-2xl overflow-hidden">
+            <DialogContent className="w-[280px] p-0 bg-panel/60 backdrop-blur-2xl border-stroke/20 rounded-xl gap-0 shadow-2xl overflow-hidden">
               {/* Header */}
-              <DialogHeader className="px-5 py-4 border-b border-stroke/50">
+              <DialogHeader className="px-4 py-3 border-b border-stroke/30">
                 <DialogTitle className="text-sm font-semibold text-light flex items-center gap-2">
                   <LayoutGrid className="w-4 h-4 text-light-muted" />
                   Display Settings
                   {displayChangedCount > 0 && (
-                    <span className="ml-auto text-[10px] font-medium px-2 py-0.5 rounded-full bg-light/10 text-light">
+                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-white/5 text-light-muted border border-stroke/30">
                       {displayChangedCount}
                     </span>
                   )}
@@ -405,9 +405,9 @@ export function MarketColumn({
                         <button
                           key={size}
                           onClick={() => setDisplaySettings(d => ({ ...d, buttonSize: size }))}
-                          className={`flex-1 flex flex-col items-center gap-2 px-3 py-3 rounded-xl transition-all duration-200 ${
+                          className={`flex-1 flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                             isActive 
-                              ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                              ? 'bg-white/5 text-light border border-stroke/50' 
                               : 'text-light-muted hover:text-light hover:bg-row/50'
                           }`}
                         >
@@ -419,7 +419,7 @@ export function MarketColumn({
                   </div>
                 </div>
 
-                <div className="h-px bg-stroke/50 mx-4" />
+                <div className="h-px bg-stroke/50 mx-3" />
 
                 {/* Image Shape Section */}
                 <div className="p-4">
@@ -427,9 +427,9 @@ export function MarketColumn({
                   <div className="flex gap-2">
                     <button
                       onClick={() => setDisplaySettings(d => ({ ...d, imageShape: 'square' }))}
-                      className={`flex-1 flex flex-col items-center gap-2 px-3 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex-1 flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                         displaySettings.imageShape === 'square' 
-                          ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                          ? 'bg-white/5 text-light border border-stroke/50' 
                           : 'text-light-muted hover:text-light hover:bg-row/50'
                       }`}
                     >
@@ -438,9 +438,9 @@ export function MarketColumn({
                     </button>
                     <button
                       onClick={() => setDisplaySettings(d => ({ ...d, imageShape: 'circle' }))}
-                      className={`flex-1 flex flex-col items-center gap-2 px-3 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex-1 flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                         displaySettings.imageShape === 'circle' 
-                          ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                          ? 'bg-white/5 text-light border border-stroke/50' 
                           : 'text-light-muted hover:text-light hover:bg-row/50'
                       }`}
                     >
@@ -450,7 +450,7 @@ export function MarketColumn({
                   </div>
                 </div>
 
-                <div className="h-px bg-stroke/50 mx-4" />
+                <div className="h-px bg-stroke/50 mx-3" />
 
                 {/* Button Shape Section */}
                 <div className="p-4">
@@ -458,9 +458,9 @@ export function MarketColumn({
                   <div className="flex gap-2">
                     <button
                       onClick={() => setDisplaySettings(d => ({ ...d, buttonShape: 'square' }))}
-                      className={`flex-1 flex flex-col items-center gap-2 px-3 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex-1 flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                         displaySettings.buttonShape === 'square' 
-                          ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                          ? 'bg-white/5 text-light border border-stroke/50' 
                           : 'text-light-muted hover:text-light hover:bg-row/50'
                       }`}
                     >
@@ -472,9 +472,9 @@ export function MarketColumn({
                     </button>
                     <button
                       onClick={() => setDisplaySettings(d => ({ ...d, buttonShape: 'circle' }))}
-                      className={`flex-1 flex flex-col items-center gap-2 px-3 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex-1 flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                         displaySettings.buttonShape === 'circle' 
-                          ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                          ? 'bg-white/5 text-light border border-stroke/50' 
                           : 'text-light-muted hover:text-light hover:bg-row/50'
                       }`}
                     >
@@ -487,7 +487,7 @@ export function MarketColumn({
                   </div>
                 </div>
 
-                <div className="h-px bg-stroke/50 mx-4" />
+                <div className="h-px bg-stroke/50 mx-3" />
 
                 {/* Button Visibility Section */}
                 <div className="p-4">
@@ -495,9 +495,9 @@ export function MarketColumn({
                   <div className="grid grid-cols-3 gap-2">
                     <button
                       onClick={() => setDisplaySettings(d => ({ ...d, buttonVisibility: 'both' }))}
-                      className={`flex flex-col items-center gap-2 px-2 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                         displaySettings.buttonVisibility === 'both' 
-                          ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                          ? 'bg-white/5 text-light border border-stroke/50' 
                           : 'text-light-muted hover:text-light hover:bg-row/50'
                       }`}
                     >
@@ -509,9 +509,9 @@ export function MarketColumn({
                     </button>
                     <button
                       onClick={() => setDisplaySettings(d => ({ ...d, buttonVisibility: 'yes-only' }))}
-                      className={`flex flex-col items-center gap-2 px-2 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                         displaySettings.buttonVisibility === 'yes-only' 
-                          ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                          ? 'bg-white/5 text-light border border-stroke/50' 
                           : 'text-light-muted hover:text-light hover:bg-row/50'
                       }`}
                     >
@@ -523,9 +523,9 @@ export function MarketColumn({
                     </button>
                     <button
                       onClick={() => setDisplaySettings(d => ({ ...d, buttonVisibility: 'no-only' }))}
-                      className={`flex flex-col items-center gap-2 px-2 py-3 rounded-xl transition-all duration-200 ${
+                      className={`flex flex-col items-center gap-2 px-2 py-2 rounded-lg transition-all duration-200 ${
                         displaySettings.buttonVisibility === 'no-only' 
-                          ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                          ? 'bg-white/5 text-light border border-stroke/50' 
                           : 'text-light-muted hover:text-light hover:bg-row/50'
                       }`}
                     >
@@ -538,7 +538,7 @@ export function MarketColumn({
                   </div>
                 </div>
 
-                <div className="h-px bg-stroke/50 mx-4" />
+                <div className="h-px bg-stroke/50 mx-3" />
 
                 {/* Search Bar Toggle */}
                 <div className="p-4">
@@ -546,7 +546,7 @@ export function MarketColumn({
                     onClick={() => setDisplaySettings(d => ({ ...d, showSearchBar: !d.showSearchBar }))}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 ${
                       displaySettings.showSearchBar 
-                        ? 'bg-light/10 ring-1 ring-light/20' 
+                        ? 'bg-white/5 border border-stroke/50' 
                         : 'hover:bg-row/50'
                     }`}
                   >
@@ -599,14 +599,14 @@ export function MarketColumn({
                 )}
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[360px] max-h-[85vh] p-0 bg-panel/95 backdrop-blur-xl border-stroke/50 rounded-2xl gap-0 shadow-2xl overflow-hidden">
+            <DialogContent className="w-[300px] max-h-[80vh] p-0 bg-panel/60 backdrop-blur-2xl border-stroke/20 rounded-xl gap-0 shadow-2xl overflow-hidden">
               {/* Header */}
-              <DialogHeader className="px-5 py-4 border-b border-stroke/50">
+              <DialogHeader className="px-4 py-3 border-b border-stroke/30">
                 <DialogTitle className="text-sm font-semibold text-light flex items-center gap-2">
                   <SlidersHorizontal className="w-4 h-4 text-light-muted" />
                   Sort & Filter
                   {(activeFilterCount > 0 || sort !== 'newest') && (
-                    <span className="ml-auto text-[10px] font-medium px-2 py-0.5 rounded-full bg-light/10 text-light">
+                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-white/5 text-light-muted border border-stroke/30">
                       {activeFilterCount + (sort !== 'newest' ? 1 : 0)} active
                     </span>
                   )}
@@ -627,7 +627,7 @@ export function MarketColumn({
                           onClick={() => setSort(opt)}
                           className={`group relative flex items-center gap-2 px-3 py-2.5 text-[11px] font-medium rounded-xl transition-all duration-200 ${
                             isActive 
-                              ? 'bg-light/10 text-light ring-1 ring-light/20' 
+                              ? 'bg-white/5 text-light border border-stroke/50' 
                               : 'text-light-muted hover:text-light hover:bg-row/50'
                           }`}
                         >
@@ -641,7 +641,7 @@ export function MarketColumn({
                   </div>
                 </div>
 
-                <div className="h-px bg-stroke/50 mx-4" />
+                <div className="h-px bg-stroke/50 mx-3" />
 
                 {/* Filters Section */}
                 <div className="p-4">
@@ -650,9 +650,9 @@ export function MarketColumn({
                   {/* Verified Only Toggle */}
                   <button
                     onClick={() => setFilters(f => ({ ...f, verifiedOnly: !f.verifiedOnly }))}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 mb-3 ${
+                    className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg transition-all duration-200 mb-3 ${
                       filters.verifiedOnly 
-                        ? 'bg-light/10 ring-1 ring-light/20' 
+                        ? 'bg-white/5 border border-stroke/50' 
                         : 'bg-row/30 hover:bg-row/50'
                     }`}
                   >
@@ -725,7 +725,7 @@ export function MarketColumn({
                         onClick={() => setFilters(f => ({ ...f, category: null }))}
                         className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-medium rounded-lg transition-all duration-200 ${
                           filters.category === null
-                            ? 'bg-light/10 text-light ring-1 ring-light/20'
+                            ? 'bg-white/5 text-light border border-stroke/50'
                             : 'text-light-muted hover:text-light hover:bg-row/50'
                         }`}
                       >
@@ -740,7 +740,7 @@ export function MarketColumn({
                             onClick={() => setFilters(f => ({ ...f, category: cat }))}
                             className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-medium rounded-lg transition-all duration-200 capitalize ${
                               isActive
-                                ? `${config.bg} ${config.color} ring-1 ring-current/30`
+                                ? `${config.bg} ${config.color} border border-current/30`
                                 : 'text-light-muted hover:text-light hover:bg-row/50'
                             }`}
                           >

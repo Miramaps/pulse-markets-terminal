@@ -1,73 +1,46 @@
-# Welcome to your Lovable project
+# Pulse Markets Terminal
 
-## Project info
+A prediction markets trading terminal built with React, TypeScript, Vite, and TailwindCSS.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## What is it?
 
-## How can I edit this code?
+A web-based trading interface for prediction markets - markets where you bet on the outcome of real-world events (elections, crypto prices, sports, pop culture, etc).
 
-There are several ways of editing your application.
+### How Prediction Markets Work
+- Each market asks a YES/NO question (e.g., "Will Bitcoin hit $150K before Feb 2025?")
+- Prices range from $0.00 to $1.00 representing probability
+- **YES at $0.65** means the market thinks there's a 65% chance it happens
+- If you're right, you win $1 per share. If wrong, you lose your stake.
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **3-column layout** - New, Ending Soon, Resolved markets
+- **YES/NO trading buttons** with circular progress rings or square style
+- **Real-time price flashing** on updates
+- **Fast buy** - Quick purchase with preset amounts
+- **Watchlist** - Star markets & view in navbar popup
+- **Market cards** showing: price change %, sentiment, volume, traders
+- **Tooltips** on hover for all metrics
+- **Display Settings** - Button size, shape, image shape, visibility
+- **Filters & Sort** - By volume, time, category, verified
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech Stack
 
-**Use your preferred IDE**
+- React 18 + TypeScript
+- Vite
+- TailwindCSS + Radix UI
+- Framer Motion
+- Lucide icons
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Development
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Build
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```bash
+npm run build
+```

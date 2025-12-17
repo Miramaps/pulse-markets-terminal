@@ -112,13 +112,13 @@ export function MarketRow({
 
   // Button size classes
   const buttonSizeClasses = {
-    small: buttonShape === 'circle' ? 'w-12 h-12' : 'h-6 px-2 min-w-[55px]',
+    small: buttonShape === 'circle' ? 'w-10 h-10' : 'h-5 px-1.5 min-w-[48px]',
     medium: buttonShape === 'circle' ? 'w-14 h-14' : 'h-7 px-2.5 min-w-[65px]',
     large: buttonShape === 'circle' ? 'w-16 h-16' : 'h-8 px-3 min-w-[75px]',
   };
 
   const buttonTextSize = {
-    small: 'text-[10px]',
+    small: 'text-[9px]',
     medium: 'text-[11px]',
     large: 'text-[12px]',
   };
@@ -133,7 +133,7 @@ export function MarketRow({
     const isYes = type === 'yes';
     
     const sizes = {
-      small: { container: 'w-12 h-12', text: 'text-[10px]', ring: 20 },
+      small: { container: 'w-10 h-10', text: 'text-[8px]', ring: 16 },
       medium: { container: 'w-14 h-14', text: 'text-[11px]', ring: 24 },
       large: { container: 'w-16 h-16', text: 'text-[12px]', ring: 28 },
     };
